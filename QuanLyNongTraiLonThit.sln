@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyNongTraiLonThit.TienIch", "QuanLyNongTraiLonThit.TienIch\QuanLyNongTraiLonThit.TienIch.csproj", "{39C868C2-240C-4B2D-9320-D9EE9ED9CCC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyNongTraiLonThit.TangGiaoDien", "QuanLyNongTraiLonThit.TangGiaoDien\QuanLyNongTraiLonThit.TangGiaoDien.csproj", "{30094FAF-45E3-4215-BA20-74CB5E184741}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39C868C2-240C-4B2D-9320-D9EE9ED9CCC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C868C2-240C-4B2D-9320-D9EE9ED9CCC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C868C2-240C-4B2D-9320-D9EE9ED9CCC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C868C2-240C-4B2D-9320-D9EE9ED9CCC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30094FAF-45E3-4215-BA20-74CB5E184741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30094FAF-45E3-4215-BA20-74CB5E184741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30094FAF-45E3-4215-BA20-74CB5E184741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30094FAF-45E3-4215-BA20-74CB5E184741}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7E48E8D-6187-45F8-A32F-8A69FA9FA889}
+	EndGlobalSection
+EndGlobal

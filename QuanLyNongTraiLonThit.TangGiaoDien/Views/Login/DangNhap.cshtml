@@ -1,0 +1,101 @@
+﻿@* @item.Price.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")) *@
+@{
+    Layout = null;
+}
+@model NhanVien
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Đăng nhập | KK Farm & Food</title>
+    @Styles.Render("~/Assets/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Bootstrap NavBar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <img src="~/Assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+                 alt="">
+            <span class="menu-collapsed " style="font-size: 22px">KK Farm & Food</span>
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            @*<ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    @Html.Partial("_AdminNavbar")
+
+                </ul>*@
+            @Html.Partial("_LoginPartial")
+        </div>
+    </nav>
+    <!-- NavBar END -->
+    <!-- Bootstrap row -->
+    <div class="row mt-5" id="body-row">
+        @* @Html.Partial("_SideBarAdmin")*@
+        @* <div class="col py-3">*@
+        <div class="col-md-3">   </div>
+        <div class="col-md-6 bg-light rounded-pill">
+            <div class=" pt-2 rounded" style="margin: 0 15% 0 15%; border-bottom: 1px solid #026b97">
+                <marquee>
+                    <h4 class=" text-primary text-capitalize" >Chào mừng bạn đến với trang quản lý nông trại <b class="">  KK Farm & Food  &nbsp</b> </h4>
+                </marquee>
+            </div>
+            <section id="loginForm">
+                @using (Html.BeginForm("DangNhap", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h5 class="text-center alert ">Hãy đăng nhập để bắt đầu phiên làm việc.</h5>
+                    
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group " style="margin-left: 15%">
+                        @Html.LabelFor(m => m.TaiKhoan, new { @class = "col-md-10 control-label  text-dank " })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.TaiKhoan, new { @class = "form-control " , @placeholder = "Nhập tên đang nhập" })
+                            @Html.ValidationMessageFor(m => m.TaiKhoan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group " style="margin-left: 15%">
+                        @Html.LabelFor(m => m.MatKhau, new { @class = "col-md-10 control-label  text-dank " })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", @placeholder = "Nhập mật khẩu" })
+                            @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*<div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.GhiNhoDangNhap)
+                                    @Html.LabelFor(m => m.GhiNhoDangNhap)
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="form-group ml-5">
+                        <div class="offset-4 col-md-4">
+                            <input type="submit" value="Đăng nhập" class="btn btn-primary justify-content-center" />
+                        </div>
+                    </div>
+                  
+                }
+            </section>
+
+            <footer class="sticky-bottom">
+                <p class="text-center">&copy; 2019 - Khanh Nguyen Kieu</p>
+            </footer>
+        </div>
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</body>
+</html>

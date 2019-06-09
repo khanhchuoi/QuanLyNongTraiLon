@@ -1,0 +1,74 @@
+﻿@model IEnumerable<QuanLyNongTraiLonThit.TienIch.Chuong>
+
+@{
+    /**/
+
+    ViewBag.Title = "Danh sách chuồng nuôi";
+}
+
+<h2>Danh sách chuồng nuôi</h2>
+<hr />
+<div class="mb-5">
+    <span>
+        <a href="@Url.Action("Create", "Chuongs")" class="btn btn-primary float-left">Thêm chuồng nuôi</a>
+    </span>
+</div>
+<div class="py-3">
+    @if (!Model.Any())
+    {
+
+        <h5 class="text-center text-danger">Danh sách chuồng nuôi trống...</h5>
+    }
+    else
+    {
+<table class="table table-condensed table-bordered table-striped">
+    <tr class="d-flex bg-light">
+        <th class="col-1 text-center">
+            STT
+        </th>
+        <th class="col-3 text-center">
+            @Html.DisplayNameFor(model => model.MaChuong)
+        </th>
+        <th class="col-3 text-center">
+            @Html.DisplayNameFor(model => model.DayChuong)
+        </th>
+        <th class="col-2 text-center">
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </th>
+        <th class="col-3 text-center">Chức năng</th>
+    </tr>
+    @{ int count = 1;}
+    @foreach (var item in Model)
+    {
+        <tr class="d-flex">
+            <td class="col-1 text-center">
+                @count
+                @{count++;}
+            </td>
+            <td class="col-3 text-center">
+                
+                <a href="@Url.Action("Details","Chuongs", new {id = item.MaChuong })">@item.MaChuong</a>
+
+            </td>
+            <td class="col-3 text-center">
+                @Html.DisplayFor(modelItem => item.DayChuong)
+            </td>
+            <td class="col-2 text-center">
+               @Helper.TrangThaiChuong(item.TrangThai)
+            </td>
+            <td class="col-3 text-center">
+                <form action="@Url.Action("Delete","Chuongs", new { id=item.MaChuong })" method="post">
+                    <a href="@Url.Action("Edit","Chuongs", new { id=item.MaChuong })" class="btn btn-primary">Sửa</a>
+                    @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+                    <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @item.MaChuong');" class="btn btn-danger">Xóa</button>
+
+                </form>
+            </td>
+        </tr>
+       
+    }
+
+</table>
+    }
+
+</div>
