@@ -20,7 +20,38 @@ namespace QuanLyNongTraiLonThit.TienIch
             "Có thể xuất bán",
             "Đã xuất bán"
         };
-
+        public static List<string> dayChuong = new List<string>()
+        {
+            "A","B","C","D","E","F","G","H"
+        };
+        /// <summary>
+        /// Tra ve trang thai vat nuoi
+        /// 0 : Đang nuôi
+        /// 1 : Đang bị bệnh
+        /// 2 : Có thể xuất bán
+        /// 3 : Đã xuất bán
+        /// </summary>
+        /// <param name="trangthai"></param>
+        /// <returns></returns>
+        public static string TrangThaiVatNuoi(byte? trangthai)
+        {
+            string result = "Đang nuôi";
+            switch (trangthai)
+            {
+                case 0:
+                    result = "Đang nuôi";
+                    break;
+                case 1:
+                    result = "Đang bị bệnh";
+                    break;
+                case 2: result =  "Có thể xuất bán"; break;
+                case 3:
+                    result ="Đã xuất bán"; break;
+                default:
+                    break;
+            }
+            return result;
+        }
         /// <summary>
         /// Check Null or White Space.
         /// </summary>
@@ -54,13 +85,28 @@ namespace QuanLyNongTraiLonThit.TienIch
             return DateTime.Now;
         }
 
-        public static string TaoMaChuong(string dayChuong, int maHienTai)
+        /// <summary>
+        /// So luong Số :
+        /// true : 4
+        /// false : 3
+        /// </summary>
+        /// <param name="tiento">Tiền tố bảng mã</param>
+        /// <param name="maHienTai"> Mã số hiện tại</param>
+        /// <param name="soluongSo"> Số chữ số muốn tạo. 3 hay 4</param>
+        /// <returns></returns>
+        public static string TaoMa(string tiento, int maHienTai, bool soluongSo = false)
         {
-            StringBuilder maChuong = new StringBuilder("C" + dayChuong);
+            StringBuilder maChuong = new StringBuilder(tiento);
             // Tang ma hien tai len 1. Va thuc hien tinh toan chen them cac so 0 .
             maHienTai++;
             int temp = maHienTai;
+
             int coutZero = 2;
+            if (soluongSo)
+            {
+                coutZero = 3;
+            }
+          
             while (temp / 10 > 0)
             {
                 coutZero--;

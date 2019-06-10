@@ -60,7 +60,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
                 mahientai = Int32.Parse(maht);
             }
 
-            chuong.MaChuong = Helper.TaoMaChuong(chuong.DayChuong, mahientai);
+            chuong.MaChuong = Helper.TaoMa("C" + chuong.DayChuong, mahientai);
             if (chuong != null)
             {
                 db.Chuongs.Add(chuong);
@@ -95,7 +95,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             Chuong chuong = new Chuong();
             chuong.MaChuong = formCollection["MaChuong"];
             chuong.DayChuong = formCollection["DayChuong"];
-            chuong.TrangThai = byte.Parse( formCollection["TrangThai"]);
+            chuong.TrangThai = byte.Parse(formCollection["TrangThai"]);
             if (chuong != null)
             {
                 db.Entry(chuong).State = EntityState.Modified;
@@ -122,7 +122,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
 
         // POST: Chuongs/Delete/5
         [HttpPost, ActionName("Delete")]
-       //ValidateAntiForgeryToken]
+        //ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             Chuong chuong = db.Chuongs.Find(id);

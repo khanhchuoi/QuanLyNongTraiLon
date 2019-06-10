@@ -40,26 +40,39 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         // GET: VatNuois/Create
         public ActionResult Create()
         {
-            ViewBag.MaChuong = new SelectList(db.Chuongs, "MaChuong", "DayChuong");
+            ViewBag.MaChuong = new SelectList(db.Chuongs.Where(c => c.TrangThai == 0), "MaChuong", "MaChuong");
             ViewBag.MaGiong = new SelectList(db.Giongs, "MaGiong", "TenGiong");
             return View();
         }
 
-        // POST: VatNuois/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaVatNuoi,MaChuong,MaGiong,ThoiGianThuHoach,ThoiGianCachLy,TrangThai")] VatNuoi vatNuoi)
+        public ActionResult Create(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            VatNuoi vatNuoi = new VatNuoi();
+            vatNuoi.MaChuong = formCollection["MaChuong"];
+            vatNuoi.MaGiong = formCollection["MaGiong"];
+            vatNuoi.TrangThai = byte.Parse(formCollection["TrangThai"]);
+            vatNuoi.ThoiGianThuHoach = DateTime.Now.AddDays(double.Parse(db.Giongs.Where(c => c.MaGiong == vatNuoi.MaGiong).FirstOrDefault().ThoiGianThuHoach.ToString()));
+
+            int mahientai = 0;
+            string maht = db.Database.SqlQuery<string>("Select MAX(RIGHT(MaVatNuoi, 4)) FROM dbo.VatNuoi").FirstOrDefault();
+            if (maht != null)
+            {
+                mahientai = Int32.Parse(maht);
+            }
+
+            vatNuoi.MaVatNuoi = Helper.TaoMa("VN", mahientai, true);
+            if (vatNuoi != null)
             {
                 db.VatNuois.Add(vatNuoi);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaChuong = new SelectList(db.Chuongs, "MaChuong", "DayChuong", vatNuoi.MaChuong);
+
+            ViewBag.MaChuong = new SelectList(db.Chuongs.Where(c => c.TrangThai == 0), "MaChuong", "MaChuong");
             ViewBag.MaGiong = new SelectList(db.Giongs, "MaGiong", "TenGiong", vatNuoi.MaGiong);
             return View(vatNuoi);
         }
@@ -76,19 +89,23 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaChuong = new SelectList(db.Chuongs, "MaChuong", "DayChuong", vatNuoi.MaChuong);
+            ViewBag.MaChuong = new SelectList(db.Chuongs.Where(c => c.TrangThai == 0), "MaChuong", "MaChuong", vatNuoi.MaChuong);
             ViewBag.MaGiong = new SelectList(db.Giongs, "MaGiong", "TenGiong", vatNuoi.MaGiong);
             return View(vatNuoi);
         }
 
         // POST: VatNuois/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaVatNuoi,MaChuong,MaGiong,ThoiGianThuHoach,ThoiGianCachLy,TrangThai")] VatNuoi vatNuoi)
+        public ActionResult Edit(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            VatNuoi vatNuoi = new VatNuoi();
+            vatNuoi.MaChuong = formCollection["MaChuong"];
+            vatNuoi.MaGiong = formCollection["MaGiong"];
+            vatNuoi.TrangThai = byte.Parse(formCollection["TrangThai"]);
+            vatNuoi.ThoiGianThuHoach = DateTime.Parse(formCollection["ThoiGianThuHoach"]);
+            vatNuoi.ThoiGianCachLy = DateTime.Parse(formCollection["ThoiGianCachLy"]);
+            if (vatNuoi != null)
             {
                 db.Entry(vatNuoi).State = EntityState.Modified;
                 db.SaveChanges();
@@ -116,7 +133,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
 
         // POST: VatNuois/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+     //   [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             VatNuoi vatNuoi = db.VatNuois.Find(id);
@@ -127,7 +144,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         public ActionResult BiBenh()
         {
             var conVatBiBenh = db.VatNuois.Include(v => v.Chuong).Include(v => v.Giong).Where(v => v.TrangThai == 1).ToList();
-                // Có thể lấy theo trạng thái. Nhưng chưa bắt được sự kiện trigger update. 
+            // Có thể lấy theo trạng thái. Nhưng chưa bắt được sự kiện trigger update. 
 
             return View("Index", conVatBiBenh);
         }

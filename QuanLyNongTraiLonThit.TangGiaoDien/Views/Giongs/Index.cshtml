@@ -1,39 +1,76 @@
 ﻿@model IEnumerable<QuanLyNongTraiLonThit.TienIch.Giong>
 
 @{
-    ViewBag.Title = "Index";
+    /**/
+
+    ViewBag.Title = "Danh sách giống nuôi";
 }
 
-<h2>Index</h2>
+<h2>Danh sách giống nuôi</h2>
+<hr />
+<<div class="mb-5">
+    <span>
+        <a href="@Url.Action("Create", "Giongs")" class="btn btn-primary float-left">Thêm giống nuôi</a>
+    </span>
+</div>
+<div class="py-3">
+    @if (!Model.Any())
+    {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenGiong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
-        </th>
-        <th></th>
-    </tr>
+        <h5 class="text-center text-danger">Danh sách giống nuôi trống...</h5>
+    }
+    else
+    {
+        <table class="table table-condensed table-bordered table-striped">
+            <tr class="d-flex bg-light">
+                <th class="col-1 text-center">
+                    STT
+                </th>
+                <th class="col-2 text-center">
+                    @Html.DisplayNameFor(model => model.MaGiong)
+                </th>
+                <th class="col-3 text-center">
+                    @Html.DisplayNameFor(model => model.TenGiong)
+                </th>
+                <th class="col-3 text-center">
+                    @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
+                </th>
+                <th class="col-3 text-center">Chức năng</th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenGiong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThoiGianThuHoach)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaGiong }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaGiong }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaGiong })
-        </td>
-    </tr>
-}
+            @{ int count = 1;}
+            @foreach (var item in Model)
+            {
+                <tr class="d-flex">
+                    <td class="col-1 text-center">
+                        @count
+                        @{count++;}
+                    </td>
+                    <td class="col-2 text-center">
 
-</table>
+                        <a href="@Url.Action("Details","Giongs", new {id = item.MaGiong })">@item.MaGiong</a>
+
+                    </td>
+
+                    <td class="col-3 text-center">
+                        @Html.DisplayFor(modelItem => item.TenGiong)
+                    </td>
+                    <td class="col-3 text-center">
+                        @Html.DisplayFor(modelItem => item.ThoiGianThuHoach)
+                    </td>
+                    <td class="col-3 text-center">
+                        <form action="@Url.Action("Delete","Giongs", new { id=item.MaGiong })" method="post">
+                            <a href="@Url.Action("Edit","Giongs", new { id=item.MaGiong })" class="btn btn-primary">Sửa</a>
+                            @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+                            <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa giống @item.TenGiong');" class="btn btn-danger">Xóa</button>
+
+                        </form>
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+    }
+
+</div>

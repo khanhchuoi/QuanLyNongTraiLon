@@ -1,34 +1,44 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.Giong
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết";
 }
 
-<h2>Details</h2>
+<h3>Thông tin chi tiết giống nuôi <span class="badge-info rounded"> &nbsp;@Model.MaGiong &nbsp;</span></h3>
+<hr />
+<table class="table table-condensed table-hover table-striped offset-2 col-md-8">
+    <thead>
+        <tr class="row bg-secondary">
+            <th class="col-md-1">STT</th>
+            <th class="col-md-5"> Thông tin</th>
+            <th class="col-md-6">Giá trị</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row">
+            <td class="col-md-1">1</td>
+            <td class="col-md-5">
+                @Html.DisplayNameFor(model => model.TenGiong)
+            </td>
+            <td class="col-md-6">
+                @Html.DisplayFor(model => model.TenGiong)
+            </td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-1">2</td>
+            <td class="col-md-5"> @Html.DisplayNameFor(model => model.ThoiGianThuHoach) </td>
+            <td class="col-md-6">
+                @Html.DisplayFor(model => model.ThoiGianThuHoach) &nbsp; ngày
+            </td>
+        </tr>
 
-<div>
-    <h4>Giong</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenGiong)
-        </dt>
+    </tbody>
+</table>
+<div class=" offset-2 col-6">
+    <form action="@Url.Action("Delete","Giongs", new { id=Model.MaGiong })" method="post">
+        <a href="@Url.Action("Edit","Giongs", new { id=Model.MaGiong })" class="btn btn-primary">Sửa</a>
+        @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+        <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @Model.MaGiong');" class="btn btn-danger">Xóa</button>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenGiong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ThoiGianThuHoach)
-        </dd>
-
-    </dl>
+    </form>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaGiong }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

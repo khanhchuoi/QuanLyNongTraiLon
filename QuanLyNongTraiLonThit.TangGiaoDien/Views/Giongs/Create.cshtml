@@ -1,51 +1,40 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.Giong
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo giống mới";
 }
 
-<h2>Create</h2>
+<h2>Tạo mới giống nuôi</h2>
 
-@using (Html.BeginForm()) 
-{
+<hr />
+<form action="/Giongs/Create" method="post" class="row form-horizontal" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Giong</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaGiong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaGiong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaGiong, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
+    <div class="form-horizontal col-8 offset-2 active">
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TenGiong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.TenGiong, htmlAttributes: new { @class = "control-label col-md-8" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.TenGiong, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TenGiong, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ThoiGianThuHoach, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ThoiGianThuHoach, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.ThoiGianThuHoach, htmlAttributes: new { @class = "control-label col-md-8" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ThoiGianThuHoach, new { htmlAttributes = new { @class = "form-control" , @min = "30", @max = "365"} })
                 @Html.ValidationMessageFor(model => model.ThoiGianThuHoach, "", new { @class = "text-danger" })
+            <script type="text/javascript">
+                document.getElementById("ThoiGianThuHoach").defaultValue = "120";
+            </script>
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                <a class="btn btn-secondary" href="Index">Trở về</a>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</form>

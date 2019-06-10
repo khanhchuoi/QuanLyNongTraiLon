@@ -47,9 +47,18 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaGiong,TenGiong,ThoiGianThuHoach")] Giong giong)
+        public ActionResult Create([Bind(Include = "TenGiong,ThoiGianThuHoach")] Giong giong)
         {
-            if (ModelState.IsValid)
+
+            int mahientai = 0;
+            string maht = db.Database.SqlQuery<string>("Select MAX(RIGHT(MaGiong, 3)) FROM dbo.Giong ").FirstOrDefault();
+            if (maht != null)
+            {
+                mahientai = Int32.Parse(maht);
+            }
+
+            giong.MaGiong = Helper.TaoMa("G", mahientai);
+            if (giong != null)
             {
                 db.Giongs.Add(giong);
                 db.SaveChanges();
@@ -75,8 +84,6 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         }
 
         // POST: Giongs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaGiong,TenGiong,ThoiGianThuHoach")] Giong giong)
@@ -107,7 +114,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
 
         // POST: Giongs/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             Giong giong = db.Giongs.Find(id);

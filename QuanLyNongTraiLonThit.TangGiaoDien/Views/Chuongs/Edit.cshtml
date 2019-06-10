@@ -4,31 +4,59 @@
     ViewBag.Title = "Sửa chuồng nuôi";
 }
 
-<h2>Edit</h2>
-
+<h3>Sửa thông tin chuồng nuôi</h3>
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Sửa thông tin chuồng nuôi</h4>
-    <hr />
+
+<div class="form-horizontal offset-3 col-7">
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.MaChuong)
+   @* @Html.HiddenFor(model => model.MaChuong)*@
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DayChuong, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DayChuong, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.LabelFor(model => model.MaChuong, htmlAttributes: new { @class = "control-label col-md-8 text-capitalize active" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.MaChuong, new { htmlAttributes = new { @class = "form-control" , @readonly ="" } })
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DayChuong, htmlAttributes: new { @class = "control-label col-md-8 text-capitalize active" })
+        <div class="col-md-8">
+            <select class="form-control" id="DayChuong" name="DayChuong">
+                @foreach (var item in Helper.dayChuong)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
             @Html.ValidationMessageFor(model => model.DayChuong, "", new { @class = "text-danger" })
+
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select>
+        @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-10" })
+        <div class="col-md-8">
 
+            <select class="form-control" id="TrangThai" name="TrangThai">
+                @{ byte count = 0;}
+                @foreach (var item in Helper.trangThaiChuong)
+                {
+
+                    if (count == Model.TrangThai)
+                    {
+                        <option value="@count" selected>@item</option>
+                    }
+                    else
+                    {
+                        <option value="@count">@item</option>
+
+                    }
+                    count++;
+                }
             </select>
 
             @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
@@ -37,8 +65,8 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Cập nhật"/>
-            <a class="btn btn-secondary" href="/Admin/BookManagement/Index">Cancel</a>
+            <input type="submit" class="btn btn-primary" value="Cập nhật" />
+            <a class="btn btn-secondary" href="/Chuongs/Index">Trờ về</a>
         </div>
     </div>
 

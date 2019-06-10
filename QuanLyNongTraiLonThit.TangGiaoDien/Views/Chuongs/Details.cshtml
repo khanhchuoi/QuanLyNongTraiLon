@@ -1,34 +1,48 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.Chuong
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết";
 }
 
-<h2>Details</h2>
+<h3>Thông tin chi tiết chuồng nuôi <span class="badge-info rounded"> &nbsp;@Model.MaChuong &nbsp;</span></h3>
+<hr />
+<table class="table table-condensed table-hover table-striped offset-2 col-md-8">
+    <thead>
+        <tr class="row bg-secondary">
+            <th class="col-md-1">STT</th>
+            <th class="col-md-5"> Thông tin</th>
+            <th class="col-md-6">Giá trị</th>
+        </tr>
+    </thead>
+    <tbody>
 
-<div>
-    <h4>Chuong</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DayChuong)
-        </dt>
+        <tr class="row">
+            <td class="col-md-1">1</td>
+            <td class="col-md-5">
+                @Html.DisplayNameFor(model => model.DayChuong)
+            </td>
+            <td class="col-md-6">
+                @Html.DisplayFor(model => model.DayChuong)
+            </td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-1">2</td>
+            <td class="col-md-5"> @Html.DisplayNameFor(model => model.TrangThai)</td>
+            <td class="col-md-6">
+                @Helper.TrangThaiChuong(Model.TrangThai)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.DayChuong)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
+    </tbody>
+</table>
+<div class=" offset-2 col-6">
+    <form action="@Url.Action("Delete","Chuongs", new { id=Model.MaChuong })" method="post">
+        <a href="@Url.Action("Edit","Chuongs", new { id=Model.MaChuong })" class="btn btn-primary">Sửa</a>
+        @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+        <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @Model.MaChuong');" class="btn btn-danger">Xóa</button>
 
-    </dl>
+    </form>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaChuong }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
