@@ -43,13 +43,25 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         }
 
         // POST: ThucAns/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaThucAn,TenThucAn,SoLuongTon,DonViTinh")] ThucAn thucAn)
+        public ActionResult Create(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            ThucAn thucAn = new ThucAn();
+
+            thucAn.TenThucAn = formCollection["TenThucAn"];
+            thucAn.SoLuongTon = 0;
+            thucAn.DonViTinh = formCollection["DonViTinh"];
+          
+            int mahientai = 0;
+            string maht = db.Database.SqlQuery<string>("Select MAX(RIGHT(MaThucAn, 3)) FROM dbo.ThucAn").FirstOrDefault();
+            if (maht != null)
+            {
+                mahientai = Int32.Parse(maht);
+            }
+
+            thucAn.MaThucAn = Helper.TaoMa("TA", mahientai);
+            if (thucAn != null)
             {
                 db.ThucAns.Add(thucAn);
                 db.SaveChanges();
@@ -75,13 +87,17 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         }
 
         // POST: ThucAns/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaThucAn,TenThucAn,SoLuongTon,DonViTinh")] ThucAn thucAn)
+        public ActionResult Edit(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            ThucAn thucAn = new ThucAn();
+
+            thucAn.TenThucAn = formCollection["TenThucAn"];
+           // thucAn.SoLuongTon = 0;
+            thucAn.DonViTinh = formCollection["DonViTinh"];
+
+            if (thucAn != null)
             {
                 db.Entry(thucAn).State = EntityState.Modified;
                 db.SaveChanges();
@@ -107,7 +123,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
 
         // POST: ThucAns/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             ThucAn thucAn = db.ThucAns.Find(id);

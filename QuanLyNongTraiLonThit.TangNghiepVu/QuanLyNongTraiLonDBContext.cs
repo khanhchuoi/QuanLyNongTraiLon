@@ -4,7 +4,6 @@ namespace QuanLyNongTraiLonThit.TangNghiepVu
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using QuanLyNongTraiLonThit.TienIch;
 
     public partial class QuanLyNongTraiLonDBContext : DbContext
     {

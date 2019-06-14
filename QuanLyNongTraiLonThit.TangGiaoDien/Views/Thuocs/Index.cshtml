@@ -1,51 +1,85 @@
 ﻿@model IEnumerable<QuanLyNongTraiLonThit.TienIch.Thuoc>
 
 @{
-    ViewBag.Title = "Index";
+    /**/
+
+    ViewBag.Title = "Danh sách thuốc";
 }
 
-<h2>Index</h2>
+<h2>Danh sách thuốc</h2>
+<hr />
+<div class="mb-5">
+    <span>
+        <a href="@Url.Action("Create", "Thuocs")" class="btn btn-primary float-left">Thêm mới thuốc</a>
+    </span>
+</div>
+<div class="py-3">
+    @if (!Model.Any())
+    {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenThuoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DonViTinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThoiGianCachLy)
-        </th>
-        <th></th>
-    </tr>
+        <h5 class="text-center text-danger">Danh sách thuốc trống...</h5>
+    }
+    else
+    {
+        <table class="table table-condensed table-hover table-bordered table-striped">
+            <tr class="d-flex bg-light">
+                <th class="col-1 text-center">
+                    STT
+                </th>
+                <th class="col-2 text-center">
+                    @Html.DisplayNameFor(model => model.MaThuoc)
+                </th>
+                <th class="col-2 text-center">
+                    @Html.DisplayNameFor(model => model.TenThuoc)
+                </th>
+                <th class="col-1 text-center">
+                    @Html.DisplayNameFor(model => model.SoLuong)
+                </th>
+                <th class="col-2 text-center">
+                    @Html.DisplayNameFor(model => model.DonViTinh)
+                </th>
+                <th class="col-2 text-center">
+                    @Html.DisplayNameFor(model => model.ThoiGianCachLy)
+                </th>
+                <th class="col-2 text-center">Chức năng</th>
+            </tr>
+            @{ int count = 1;}
+            @foreach (var item in Model)
+            {
+                <tr class="d-flex">
+                    <td class="col-1 text-center">
+                        @count
+                        @{count++;}
+                    </td>
+                    <td class="col-3 text-center">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenThuoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoLuong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonViTinh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThoiGianCachLy)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaThuoc }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaThuoc }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaThuoc })
-        </td>
-    </tr>
-}
+                        <a href="@Url.Action("Details","Thuocs", new {id = item.MaThuoc })">@item.MaThuoc</a>
 
-</table>
+                    </td>
+                    <td class="col-2 text-center">
+                        @Html.DisplayFor(modelItem => item.TenThuoc)
+                    </td>
+                    <td class="col-1 text-center">
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td class="col-2 text-center">
+                        @Html.DisplayFor(modelItem => item.DonViTinh)
+                    </td>
+                    <td class="col-2 text-center">
+                        @Html.DisplayFor(modelItem => item.ThoiGianCachLy)
+                    </td>
+                    <td class="col-2 text-center">
+                        <form action="@Url.Action("Delete", "Thuocs", new { id = item.MaThuoc })" method="post">
+                            <a href="@Url.Action("Edit", "Thuocs", new { id = item.MaThuoc })" class="btn btn-primary">Sửa</a>
+                            @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+                            <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @item.MaThuoc');" class="btn btn-danger" disabled>Xóa</button>
+
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+
+</div>

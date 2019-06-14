@@ -672,6 +672,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Views\VatNuois\Create.cshtml" />
+    <Content Include="Views\Thuocs\Create.cshtml" />
+    <Content Include="Views\Thuocs\Index.cshtml" />
+    <Content Include="Views\Thuocs\Details.cshtml" />
+    <Content Include="Views\Thuocs\Edit.cshtml" />
+    <Content Include="Views\Thuocs\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -794,12 +800,6 @@
     <Content Include="Views\ThucAns\Details.cshtml" />
     <Content Include="Views\ThucAns\Edit.cshtml" />
     <Content Include="Views\ThucAns\Index.cshtml" />
-    <Content Include="Views\Thuocs\Create.cshtml" />
-    <Content Include="Views\Thuocs\Delete.cshtml" />
-    <Content Include="Views\Thuocs\Details.cshtml" />
-    <Content Include="Views\Thuocs\Edit.cshtml" />
-    <Content Include="Views\Thuocs\Index.cshtml" />
-    <Content Include="Views\VatNuois\Create.cshtml" />
     <Content Include="Views\VatNuois\Delete.cshtml" />
     <Content Include="Views\VatNuois\Details.cshtml" />
     <Content Include="Views\VatNuois\Edit.cshtml" />

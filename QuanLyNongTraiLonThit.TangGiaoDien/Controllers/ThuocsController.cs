@@ -18,7 +18,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         // GET: Thuocs
         public ActionResult Index()
         {
-            return View(db.Thuocs.ToList());
+            return View(db.Thuocs.OrderBy(t=>t.SoLuong).ToList());
         }
 
         // GET: Thuocs/Details/5
@@ -42,19 +42,31 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             return View();
         }
 
-        // POST: Thuocs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaThuoc,TenThuoc,SoLuong,DonViTinh,ThoiGianCachLy")] Thuoc thuoc)
+        public ActionResult Create(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            Thuoc thuoc = new Thuoc();
+            thuoc.SoLuong = Int32.Parse( formCollection["SoLuong"]);
+            thuoc.TenThuoc = formCollection["TenThuoc"];
+            thuoc.ThoiGianCachLy = Int32.Parse(formCollection["ThoiGianCachLy"]);
+            thuoc.DonViTinh = formCollection["DonViTinh"];
+
+            int mahientai = 0;
+            string maht = db.Database.SqlQuery<string>("Select MAX(RIGHT(MaThuoc, 3)) FROM dbo.Thuoc").FirstOrDefault();
+            if (maht != null)
+            {
+                mahientai = Int32.Parse(maht);
+            }
+
+            thuoc.MaThuoc = Helper.TaoMa("TH", mahientai);
+            if (thuoc != null)
             {
                 db.Thuocs.Add(thuoc);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
 
             return View(thuoc);
         }
@@ -75,13 +87,17 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         }
 
         // POST: Thuocs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaThuoc,TenThuoc,SoLuong,DonViTinh,ThoiGianCachLy")] Thuoc thuoc)
+        public ActionResult Edit(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            Thuoc thuoc = new Thuoc();
+            //thuoc.SoLuong = Int32.Parse(formCollection["SoLuong"]);
+            thuoc.TenThuoc = formCollection["TenThuoc"];
+            thuoc.ThoiGianCachLy = Int32.Parse(formCollection["ThoiGianCachLy"]);
+            thuoc.DonViTinh = formCollection["DonViTinh"];
+
+            if (thuoc != null)
             {
                 db.Entry(thuoc).State = EntityState.Modified;
                 db.SaveChanges();
@@ -107,7 +123,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
 
         // POST: Thuocs/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             Thuoc thuoc = db.Thuocs.Find(id);

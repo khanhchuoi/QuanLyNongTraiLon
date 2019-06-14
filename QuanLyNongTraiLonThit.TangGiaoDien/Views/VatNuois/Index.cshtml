@@ -19,81 +19,70 @@
         }
         else
         {
-    <table class="table table-condensed table-hover  table-striped">
+    <table class="table table-condensed table-hover  table-striped ">
         <tr class="d-flex bg-light">
-            <th class=" text-center">
+            <th class="col-1 text-center">
                 STT
             </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.MaVatNuoi)
-
+            <th class="col-1 text-center">
+                @*@Html.DisplayNameFor(model => model.MaVatNuoi)*@
+                Mã
             </th>
-            <th class=" text-center">
-                @Html.DisplayNameFor(model => model.Chuong.DayChuong)
+            <th class="col-1 text-center">
+                @*@Html.DisplayNameFor(model => model.Chuong.DayChuong)*@
+                Chuồng
             </th>
-            <th class=" text-center">
+            <th class="col-2 text-center">
                 @Html.DisplayNameFor(model => model.Giong.TenGiong)
             </th>
-            <th class=" text-center">
+            <th class="col-2 text-center">
                 @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
             </th>
-            <th class=" text-center">
+            <th class="col-2 text-center">
                 @Html.DisplayNameFor(model => model.ThoiGianCachLy)
             </th>
-            <th class=" text-center">
+            <th class="col-1 text-center">
                 @Html.DisplayNameFor(model => model.TrangThai)
             </th>
-            <th class=" text-center">Chức năng</th>
+            <th class="col-2 text-center">Chức năng</th>
         </tr>
 
         @{ int count = 1;}
         @foreach (var item in Model)
         {
             <tr class="d-flex">
-                <td class=" text-center">
+                <td class="col-1 text-center">
                     @count
                     @{count++;}
                 </td>
-                <th class="text-center">
+                <td class="col-1 text-center">
                     <a href="@Url.Action("Details","VatNuois", new {id = item.MaVatNuoi })">@item.MaVatNuoi</a>
 
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Chuong.DayChuong)
                 </td>
-                <td>
+                <td class="col-1 text-center">
+                    @Html.DisplayFor(modelItem => item.Chuong.MaChuong)
+                </td>
+                <td class="col-2 text-center">
                     @Html.DisplayFor(modelItem => item.Giong.TenGiong)
                 </td>
-                <td>
-                    @if (item.ThoiGianThuHoach != null)
-                    {
-                        item.ThoiGianThuHoach.Value.ToShortDateString();
-                    }
-                    else
-                    {
-                        0.ToString();
-                    }
+                <td class="col-2 text-center">
+
+                    @Helper.getDateFromDatetime(item.ThoiGianThuHoach.Value)
+
                 </td>
-                <td>
-                    @if (item.ThoiGianCachLy != null)
-                    {
-                        item.ThoiGianCachLy.Value.ToShortDateString();
-                    }
-                    else
-                    {
-                        0.ToString();
-                    }
+                <td class="col-2 text-center">
+                        @Helper.getDateFromDatetime(item.ThoiGianCachLy.Value)
                 </td>
-                <td>
-                    @Helper.TrangThaiVatNuoi(item.TrangThai);
+                <td class="col-1 text-center">
+                    @Helper.TrangThaiVatNuoi(item.TrangThai)
                  
                 </td>
 
-                <td class=" text-center">
+                <td class="col-2 text-center">
                     <form action="@Url.Action("Delete","VatNuois", new { id=item.MaVatNuoi })" method="post">
                         <a href="@Url.Action("Edit","VatNuois", new { id=item.MaVatNuoi })" class="btn btn-primary">Sửa</a>
                         @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
-                        <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @item.MaVatNuoi');" class="btn btn-danger">Xóa</button>
+                        <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @item.MaVatNuoi');" disabled class="btn btn-danger">Xóa</button>
 
                     </form>
                 </td>

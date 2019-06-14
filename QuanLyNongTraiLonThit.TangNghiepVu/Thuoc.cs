@@ -1,4 +1,4 @@
-﻿namespace QuanLyNongTraiLonThit.TienIch
+namespace QuanLyNongTraiLonThit.TangNghiepVu
 {
     using System;
     using System.Collections.Generic;
@@ -18,27 +18,16 @@
 
         [Key]
         [StringLength(6)]
-        [Display(Name = "Mã thuốc")]
-
         public string MaThuoc { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Tên thuốc")]
-
         public string TenThuoc { get; set; }
-
-        [Display(Name = "Số lượng")]
 
         public int? SoLuong { get; set; }
 
         [StringLength(15)]
-        [Display(Name = "Đơn vị tính")]
-
         public string DonViTinh { get; set; }
-
-        [Column(TypeName = "date")]
-        [Display(Name = "Thời gian cách ly")]
 
         public int? ThoiGianCachLy { get; set; }
 

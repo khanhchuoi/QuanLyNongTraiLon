@@ -1,69 +1,85 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.VatNuoi
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa vật nuôi";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
+<h3>Sửa thông tin vật nuôi</h3>
+<hr />
+<form action="/VatNuois/Edit" method="post" class="row form-horizontal" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>VatNuoi</h4>
-        <hr />
+
+    <div class="form-horizontal offset-1 col-11 row">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.MaVatNuoi)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaChuong, "MaChuong", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-5">
+            <label class="control-label col-md-12" for="MaChuong">Mã chuồng</label>
+          @*  @Html.LabelFor(model => model.MaChuong, "MaChuong", htmlAttributes: new { @class = "control-label col-md-12" })*@
+            <div class="col-md-12">
                 @Html.DropDownList("MaChuong", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MaChuong, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaGiong, "MaGiong", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-5">
+            <label class="control-label col-md-12" for="MaChuong">Mã giống</label>
+            @* @Html.LabelFor(model => model.MaGiong, "MaGiong", htmlAttributes: new { @class = "control-label col-md-12" })*@
+            <div class="col-md-12">
                 @Html.DropDownList("MaGiong", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MaGiong, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ThoiGianThuHoach, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.ThoiGianThuHoach, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.ThoiGianThuHoach, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ThoiGianThuHoach, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ThoiGianCachLy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.ThoiGianCachLy, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.ThoiGianCachLy, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ThoiGianCachLy, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                <select class="form-control" id="TrangThai" name="TrangThai" disabled >
+                    @{ byte count = 0;}
+                    @foreach (var item in Helper.trangThaiVatNuoi)
+                    {
+                        if (count == Model.TrangThai)
+                        {
+                            <option value="@count" selected>@item</option>
+
+                        }
+                        else
+                        {
+                            <option value="@count">@item</option>
+
+                        }
+                        count++;
+                    }
+                </select>
+               @* @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
+    <div class="form-horizontal col-11 offset-1 active row">
+        <div class="form-group col-6">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" class="btn btn-primary mr-2" value="Cập nhật" />
+                <a class="btn btn-secondary" href="/VatNuois/Index">Trờ về</a>
             </div>
         </div>
-    </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    </div>
+</form>

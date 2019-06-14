@@ -1,58 +1,85 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.VatNuoi
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết";
 }
 
-<h2>Details</h2>
+<h3>Thông tin chi tiết vật nuôi <span class="badge-info rounded"> &nbsp;@Model.MaVatNuoi &nbsp;</span></h3>
+<hr />
+<table class="table table-condensed table-hover table-striped offset-2 col-md-8">
+    <thead>
+        <tr class="row bg-info">
+            <th class="col-md-1">STT</th>
+            <th class="col-md-4 text-center"> Thông tin</th>
+            <th class="col-md-6 text-left">Giá trị</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row">
+            <td class="col-md-1">1</td>
+            <td class="col-md-4 text-right pr-5">
+                @Html.DisplayNameFor(model => model.Chuong.MaChuong)
+            </td>
+            <td class="col-md-6">
+                @Html.DisplayFor(model => model.Chuong.MaChuong)
+            </td>
+        </tr>
+        <tr class="row">
+            <td class="col-md-1">2</td>
+            <td class="col-md-4 text-right pr-5">
+                @Html.DisplayNameFor(model => model.Giong.TenGiong)
+            </td>
+            <td class="col-md-6">
+                @Html.DisplayFor(model => model.Giong.TenGiong)
+            </td>
+        </tr>
+      
+        <tr class="row">
+            <td class="col-md-1">3</td>
+            <td class="col-md-4 text-right pr-5">
+                @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
+            </td>
+            <td class="col-md-6">
+                @*@Html.DisplayFor(model => model.ThoiGianThuHoach)*@
+                @Helper.getDateFromDatetime(Model.ThoiGianThuHoach)
+            </td>
+        </tr>
+       
+        <tr class="row">
+            <td class="col-md-1">4</td>
+            <td class="col-md-4 text-right pr-5">
+                @Html.DisplayNameFor(model => model.ThoiGianCachLy)
 
-<div>
-    <h4>VatNuoi</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Chuong.DayChuong)
-        </dt>
+            </td>
+            <td class="col-md-6">
+                @*@Html.DisplayFor(model => model.ThoiGianCachLy)*@
+                @Helper.getDateFromDatetime(Model.ThoiGianCachLy)
 
-        <dd>
-            @Html.DisplayFor(model => model.Chuong.DayChuong)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Giong.TenGiong)
-        </dt>
+            </td>
+        </tr>
+       
+        <tr class="row">
+            <td class="col-md-1">5</td>
+            <td class="col-md-4 text-right pr-5">
+                @Html.DisplayNameFor(model => model.TrangThai)
 
-        <dd>
-            @Html.DisplayFor(model => model.Giong.TenGiong)
-        </dd>
+            </td>
+            <td class="col-md-6">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ThoiGianThuHoach)
-        </dt>
+               @* @Html.DisplayFor(model => model.TrangThai)*@
+                @Helper.TrangThaiVatNuoi(Model.TrangThai)
 
-        <dd>
-            @Html.DisplayFor(model => model.ThoiGianThuHoach)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ThoiGianCachLy)
-        </dt>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class=" offset-2 col-6">
+    <form action="@Url.Action("Delete","VatNuois", new { id=Model.MaVatNuoi })" method="post">
+        <a href="@Url.Action("Edit","VatNuois", new { id=Model.MaVatNuoi })" class="btn btn-primary">Sửa</a>
+        @* @Html.ActionLink("Sửa", "Edit", new { id = item.MaChuong }) |*@
+        <button type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa chuồng @Model.MaVatNuoi');" class="btn btn-danger">Xóa</button>
 
-        <dd>
-            @Html.DisplayFor(model => model.ThoiGianCachLy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-    </dl>
+    </form>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaVatNuoi }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

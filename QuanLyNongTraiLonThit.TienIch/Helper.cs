@@ -20,6 +20,12 @@ namespace QuanLyNongTraiLonThit.TienIch
             "Có thể xuất bán",
             "Đã xuất bán"
         };
+        public static List<string> donViTinhThuoc = new List<string>()
+        {
+            "Liều",
+            "Gói",
+            "Chai"
+        };
         public static List<string> dayChuong = new List<string>()
         {
             "A","B","C","D","E","F","G","H"
@@ -80,6 +86,15 @@ namespace QuanLyNongTraiLonThit.TienIch
             return startTime;
         }
 
+        public static string getDateFromDatetime(DateTime? dateTime)
+        {
+            if (dateTime == null)
+            {
+                return "0";
+            }
+            string result = dateTime.Value.ToShortDateString();
+            return result;
+        }
         public static DateTime CurrentTime()
         {
             return DateTime.Now;

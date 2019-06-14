@@ -19,7 +19,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         public ActionResult Index()
         {
             var vatNuois = db.VatNuois.Include(v => v.Chuong).Include(v => v.Giong);
-            return View(vatNuois.ToList());
+            return View(vatNuois.OrderByDescending(v=> v.MaVatNuoi).ToList());
         }
 
         // GET: VatNuois/Details/5
@@ -45,7 +45,6 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             return View();
         }
 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection formCollection)
@@ -53,7 +52,9 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             VatNuoi vatNuoi = new VatNuoi();
             vatNuoi.MaChuong = formCollection["MaChuong"];
             vatNuoi.MaGiong = formCollection["MaGiong"];
-            vatNuoi.TrangThai = byte.Parse(formCollection["TrangThai"]);
+            //vatNuoi.TrangThai = byte.Parse(formCollection["TrangThai"]);
+            vatNuoi.TrangThai = 0;
+            vatNuoi.ThoiGianCachLy = DateTime.Now.Date;
             vatNuoi.ThoiGianThuHoach = DateTime.Now.AddDays(double.Parse(db.Giongs.Where(c => c.MaGiong == vatNuoi.MaGiong).FirstOrDefault().ThoiGianThuHoach.ToString()));
 
             int mahientai = 0;
@@ -64,6 +65,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
             }
 
             vatNuoi.MaVatNuoi = Helper.TaoMa("VN", mahientai, true);
+           
             if (vatNuoi != null)
             {
                 db.VatNuois.Add(vatNuoi);

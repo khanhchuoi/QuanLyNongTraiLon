@@ -19,7 +19,7 @@ namespace QuanLyNongTraiLonThit.TangGiaoDien.Controllers
         // GET: Chuongs
         public ActionResult Index()
         {
-            return View(db.Chuongs.ToList());
+            return View(db.Chuongs.OrderBy(c=>c.TrangThai).ToList());
         }
 
         // GET: Chuongs/Details/5

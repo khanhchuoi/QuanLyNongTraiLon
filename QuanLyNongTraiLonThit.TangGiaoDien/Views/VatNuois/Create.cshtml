@@ -1,88 +1,95 @@
 ﻿@model QuanLyNongTraiLonThit.TienIch.VatNuoi
-
 @{
-    ViewBag.Title = "Tạo mới vật nuôi ";
+    ViewBag.Title = "Tạo mới vật nuôi";
 }
 
-@if (ViewBag.MaChuong == null)
-{
     <h2>Tạo mới vật nuôi</h2>
-    <hr />
+<hr />
+<form action="/VatNuois/Create" method="post" class="row form-horizontal" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
 
-    <h5 class="text-danger"> Hiện tại không có chuồng trống. Bạn không thể nuôi thêm lợn. </h5>
-    <div>
-        <a class="btn btn-secondary" href="Index">Trở về</a>
-    </div>
-}
-else
-{
+    <div class="form-horizontal col-11 offset-1 active row">
 
-    <form action="/VatNuois/Create" method="post" class="row form-horizontal" enctype="multipart/form-data">
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal col-8 offset-2 active">
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MaChuong, htmlAttributes: new { @class = "control-label col-md-10" })
-                <div class="col-md-10">
-
-                    @Html.DropDownList("MaChuong", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MaChuong, "", new { @class = "text-danger" })
-                </div>
+        @*<div class="form-group col-md-5">
+            @Html.LabelFor(model => model.MaVatNuoi, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.MaVatNuoi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaVatNuoi, "", new { @class = "text-danger" })
             </div>
+        </div>*@
 
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.MaGiong, htmlAttributes: new { @class = "control-label col-md-10" })
-                <div class="col-md-10">
-                    @Html.DropDownList("MaGiong", null, htmlAttributes: new { @class = "form-control" })
-                   @Html.ValidationMessageFor(model => model.MaGiong, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-            <div class="form-group">
-              <label class = "control-label col-md-10" > Thời gian thu hoạch</label>
-                <div class="col-md-10">
-                    <input type="date" id="ThoiGianThuHoach" name="ThoiGianThuHoach" class="form-control" value="@Model.Giong.ThoiGianThuHoach"/>
-                    @Html.ValidationMessageFor(model => model.ThoiGianThuHoach, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group col-md-5">
+            <label class="control-label col-md-12" for="MaChuong">Mã chuồng</label>
+          @*  @Html.LabelFor(model => model.MaChuong, "MaChuong", htmlAttributes: new { @class = "control-label col-md-12" })*@
+            <div class="col-md-12">
+                @Html.DropDownList("MaChuong", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaChuong, "", new { @class = "text-danger" })
             </div>
+        </div>
 
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.ThoiGianCachLy, htmlAttributes: new { @class = "control-label col-md-10" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ThoiGianCachLy, new { htmlAttributes = new { @class = "form-control" , @value = DateTime.Now } })
-                    @Html.ValidationMessageFor(model => model.ThoiGianCachLy, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+        <div class="form-group col-md-5">
+            <label class="control-label col-md-12" for="MaChuong">Mã giống</label>
+            @*@Html.LabelFor(model => model.MaGiong, "MaGiong", htmlAttributes: new { @class = "control-label col-md-12" })*@
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-10" })
-                <div class="col-md-10">
-                    <select class="form-control" id="TrangThai" name="TrangThai" disabled>
-                        @{ int count = 0;}
-                        @foreach (var item in Helper.trangThaiVatNuoi)
+            <div class="col-md-12">
+                @Html.DropDownList("MaGiong", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaGiong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.ThoiGianThuHoach, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                <input class="form-control" name="ThoiGianThuHoach" id="ThoiGianThuHoach" value="0" readonly />
+                @*  @Html.EditorFor(model => model.ThoiGianThuHoach, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.ThoiGianThuHoach, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.ThoiGianCachLy, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                <input class="form-control" name="ThoiGianCachLy" id="ThoiGianCachLy" value="0" readonly />
+
+                @* @Html.EditorFor(model => model.ThoiGianCachLy, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.ThoiGianCachLy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-5">
+            @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                <select class="form-control" id="TrangThai" name="TrangThai" disabled>
+                    @{ int count = 0;}
+                    @foreach (var item in Helper.trangThaiVatNuoi)
+                    {
+                        if (item == "Đang nuôi")
                         {
-                            if (item == "Đang nuôi")
-                            {
-                                <option value="@count" selected>@item</option>
-
-                            }
-                            else
-                            {
-                                <option value="@count">@item</option>
-                            }
-                            count++;
+                            <option value="@count" selected>@item</option>
                         }
-                    </select>
-                    @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
-                        <a class="btn btn-secondary" href="Index">Trở về</a>
-                    </div>
-                </div>
+                        else
+                        {
+                            <option value="@count">@item</option>
+
+                        }
+                        count++;
+                    }
+                </select>
+                @Html.HiddenFor(t => t.TrangThai)
+                @* @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
             </div>
-    </form>
+        </div>
+    </div>
+    <div class="form-horizontal col-11 offset-1 active row">
+        <div class="form-group col-6">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo mới" class="btn btn-primary mr-2" />
+                <a class="btn btn-secondary" href="Index">Trở về</a>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
